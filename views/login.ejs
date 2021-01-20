@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+    <div id="nav">
+        <ul>
+            <li> <a href="/secret" >Secret Page</a></li>
+            
+        </ul>
+        <ul>
+            <p>To Open this first login or SignUp</p>
+        </ul>
+    </div>
+
+    <div class="DivForm">
+        <h1>Login</h1>
+
+        <form action="/login" method="POST" onsubmit="return validateForm()" name="form">
+            <div class="input1">
+                <label> Username </label>
+                <input type="text" name="username" placeholder="User Name">
+            </div>
+            <div class="input2">
+                <label> Password </label>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+
+            <!-- checkCaptcha() -->
+            <button onclick="" type="submit" id="btnLogin" class="btn"> Login </button>
+        </form>
+
+        <div class="btn">
+            <a class="btn" href="/register"> Register </a>
+        </div>
+        
+    </div>
+
+    <!-- <a id="start" href="http://www.google.com/maps/search/restaurant/@+latitude+,+longitude+,17z"> link </a> -->
+    <script>
+
+    function validateForm() {
+        var x = document.forms["form"]["name"].value;
+        var y = document.forms["form"]["password"].value;
+
+        if (x == ""|| y=="") {
+            //newCaptcha()
+            alert("all fields must be filled out");
+            return false;
+        }
+
+        // Validate Captcha!
+        if(document.getElementById("captcha").value != document.getElementById("textCapt").value){
+            return false;
+            alert("Enter a valid Captcha")
+        }
+
+        else{
+            alert("Your form is submited")
+        }
+    }
+
+    </script>
+<%- include('partials/footer') %>   

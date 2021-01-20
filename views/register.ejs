@@ -1,0 +1,90 @@
+<%- include('partials/header') %>
+    <div id="nav">
+        <ul>
+            <li> <a href="/" id="RegisterHome">Back</a></li>
+        </ul>
+    </div>
+
+    <div class="DivForm">
+        <h1>Customer Registeration</h1>
+
+        <form action="/register" method="POST" onsubmit="return validateForm()" name="form">
+            <div class="input1">
+                <label> Username </label>
+                <input type="text" name="username" placeholder="User Name">
+            </div>
+            <div class="input2">
+                <label> Password </label>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="input3">
+                <input type="text" readonly id="captcha">
+                <input type="text" placeholder="Enter Captcha" id="textCapt">
+            </div>
+            <input type="hidden" id="long" name="longitude" />
+            <input type="hidden" id="lati" name="latitude" />
+
+            <button onclick="" type="submit" id="btnSumbit" class="btn"> Submit </button>
+        </form>
+
+    </div>
+
+    <!-- <a id="start" href="http://www.google.com/maps/search/restaurant/@+latitude+,+longitude+,17z"> link </a> -->
+    <script>
+
+        
+
+        function getNearbyLocation(){
+            navigator.geolocation.getCurrentPosition(
+                data=>{
+                console.log(data);
+
+                var longitude = data.coords.longitude;
+                var latitude = data.coords.latitude;
+                
+                document.getElementById("long").value = longitude;
+                document.getElementById("lati").value = latitude;
+
+                console.log(longitude);
+                console.log(latitude);
+            },
+            error => console.log(error)
+            )
+        }
+
+    function validateForm() {
+        var x = document.forms["form"]["username"].value;
+        var y = document.forms["form"]["password"].value;
+
+        if (x == ""|| y=="") {
+            //newCaptcha()
+            alert("all fields must be filled out");
+            return false;
+        }
+
+        // Validate Captcha!
+        if(document.getElementById("captcha").value != document.getElementById("textCapt").value){
+            return false;
+            alert("Enter a valid Captcha")
+        }
+
+        else{
+            alert("Your form is submited")
+        }
+    }
+        
+        function newCaptcha(){
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charLength = characters.length;
+
+            for ( var i = 0; i < 6; i++ ) {
+                result += characters.charAt(Math.floor(Math.random()*charLength));
+            }
+            document.getElementById("captcha").value =  result;
+        getNearbyLocation();
+
+        }
+
+    </script>
+<%- include('partials/footer') %>   
